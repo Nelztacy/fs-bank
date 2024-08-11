@@ -8,7 +8,7 @@ pipeline {
     }
     
     environment{
-        SCANNER_HOME= tool 'sonar-scanner'
+        SCANNER_HOME= tool 'SonarQubeScanner_6.1.0.4477'
     }
     
     stages {
