@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/jaiswaladi246/fullstack-bank.git'
+                git branch: 'main', url: 'https://github.com/Nelztacy/fs-bank.git'
             }
         }
         
@@ -34,7 +34,7 @@ pipeline {
         stage('SONARQUBE ANALYSIS') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh " $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Bank -Dsonar.projectKey=Bank "
+                    sh " $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=fs-bank -Dsonar.projectKey=fs-bank "
                 }
             }
         }
@@ -48,7 +48,7 @@ pipeline {
         
         stage('Backend') {
             steps {
-                dir('/root/.jenkins/workspace/Bank/app/backend') {
+		dir('/var/lib/jenkins/workspace/fs-bank/app/backend') {
                     sh "npm install"
                 }
             }
@@ -56,13 +56,13 @@ pipeline {
         
         stage('frontend') {
             steps {
-                dir('/root/.jenkins/workspace/Bank/app/frontend') {
+		dir('/var/lib/jenkins/workspace/fs-bank/app/frontend') {
                     sh "npm install"
                 }
             }
         }
         
-        stage('Deploy to Conatiner') {
+        stage('Deploy to Container') {
             steps {
                 sh "npm run compose:up -d"
             }
